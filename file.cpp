@@ -1,3 +1,5 @@
+
+
 #include<iostream>
 #include<fstream>
 #include<cstring>
@@ -112,25 +114,138 @@ class college:public bas{
 		    
 		}
 };
-class full:public college
+
+class student:public bas{
+    private:
+    int studentid;
+    string studentname;
+    string fathername;
+    string address;
+    string faculty;
+    public:
+    student(int i=1,string n="no",string fn="No",string ad="no",string fa="cs")
+    {
+        studentid=i;
+        studentname=n;
+        fathername=fn;
+        address=ad;
+        faculty=fa;
+    }
+    //getfunction
+    int getsid()
+    {
+        return studentid;
+    }
+    string getsname()
+    {
+        return studentname;
+    }
+    string getsfathername()
+    {
+        return fathername;
+    }
+    string getaddress()
+    {
+        return address;
+    }
+    string getfaculty()
+    {
+        return faculty;
+    }
+    //set setfunction
+   void setsid(int i)
+   {
+       studentid=i;
+   }
+   void setsname(string n)
+   {
+       studentname=n;
+   }
+   void setfathername(string fa)
+   {
+       fathername=fa;
+   }
+   void setaddress(string add)
+   {
+       address=add;
+   }
+   void setfaculty(string f)
+   {
+       faculty=f;
+   }
+  
+   void display_menu()
+   {
+       fstream s_file;
+      cout<<"\n\t\t student data Entry ";
+      cout<<"\n\t\t  student Id : ";cin>>studentid;
+      cout<<"\n\t\t Student Name: ";cin>>studentname;
+      cout<<"\n\t\t  Father Name ";cin>>fathername;
+      cout<<"\n\t\t Address : ";cin>>address;
+      cout<<"\n\t\t Faculty : ";cin>>faculty;
+      s_file.open ("studentrecord.txt", ios::app | ios::out);
+    
+ 
+ 
+s_file << left << setw (13) << studentid << setw (13) << studentname << setw (13) <<
+      fathername << setw (13) << address
+ <<setw (13) << faculty;
+    
+s_file << endl;
+    
+s_file.close ();
+   }
+     void disp()
+   {
+       ifstream output("studentrecord.txt",ios::in);
+       if(!output)
+       {
+           cerr<<"\n NOt opening";
+           exit(1);
+       }
+           
+           while(output>>studentid>>studentname>>fathername>>address>>faculty)
+           {
+               cout<< left << setw (13) << studentid << setw (13) << studentname << setw (13) <<
+      fathername << setw (13) << address
+ <<setw (13) << faculty;
+           }
+       
+      output.close(); 
+   }
+  
+   
+};
+
+
+void set()
 {
-   public:
-   int n;
-   virtual void display_menu()
-   {    
-       cout<<"\n\t\t University Managment system:";
+    student s;
+    college *c;
+    int n;
+      cout<<"\n\t\t University Managment system:";
        cout<<"\n\n\t\t 1.College Affiliated: "
-           <<"\n\t\t 2.Students";
+           <<"\n\t\t 2.Students"
+           <<"\n\t\t 3.Display student data";
        
        cout<<"\n\n\n Where you want to go:";
        cin>>n;
        if(n==1)
-       college::display_menu();
-   }
+       c->display_menu();
+       if(n==2)
+       s.display_menu();
+       if(n==3)
+       s.disp();
+        else
+       {
+           cout<<"\n  select again:";
+       set();
+       }
     
-};
+}
+
 int main()
-{ full f1;
-   f1.display_menu();
-    return 0;
+{ 
+     set(); 
+       
 }
